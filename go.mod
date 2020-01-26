@@ -1,4 +1,4 @@
-module github.com/user/modi-backend-go
+module github.com/junpyo/modi-backend-go
 
 go 1.13
 

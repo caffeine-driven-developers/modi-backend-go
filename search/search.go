@@ -39,6 +39,7 @@ func searchOmdbByTitle(title []string) []byte{
 	return body
 }
 
+// get api key from .env file
 func goDotEnvVariable(key string) string {
 
 	// load .env file
