@@ -1,9 +1,9 @@
 
-package main
+package main // import "github.com/caffeine-driven-developers/modi-backend-go"
 
 import (
+	"github.com/caffeine-driven-developers/modi-backend-go/search"
 	"github.com/gin-gonic/gin"
-	"github.com/junpyo/modi-backend-go/search"
 )
 func main() {
 	r := gin.Default()
