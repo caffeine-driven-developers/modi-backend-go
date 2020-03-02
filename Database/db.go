@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"github.com/caffeine-driven-developers/modi-backend-go/search"
+	"github.com/caffeine-driven-developers/modi-backend-go/lib"
 
 )
 // DBConfig represents db configuration
@@ -15,8 +15,8 @@ type DBConfig struct {
 }
 
 func BuildDBConfig() *DBConfig {
-	dbUser := search.GoDotEnvVariable("DB_USER")
-	dbPassword := search.GoDotEnvVariable("DB_PASSWORD")
+	dbUser := lib.GoDotEnvVariable("DB_USER")
+	dbPassword := lib.GoDotEnvVariable("DB_PASSWORD")
 	dbConfig := DBConfig{
 		Host:     "localhost",
 		Port:     3306,

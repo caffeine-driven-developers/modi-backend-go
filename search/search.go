@@ -1,12 +1,10 @@
 package search
 
 import (
+	"github.com/caffeine-driven-developers/modi-backend-go/lib"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"os"
 )
 
 func OMDB(c *gin.Context){
@@ -25,29 +23,18 @@ func OMDB(c *gin.Context){
 }
 
 func searchOmdbById(id []string) []byte{
-	apiKey := GoDotEnvVariable("OMDB_API_KEY")
+	apiKey := lib.GoDotEnvVariable("OMDB_API_KEY")
 	resp, _ := http.Get(`https://www.omdbapi.com/?i=`+id[0]+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
 	return body
 }
 func searchOmdbByTitle(title []string) []byte{
-	apiKey := GoDotEnvVariable("OMDB_API_KEY")
+	apiKey := lib.GoDotEnvVariable("OMDB_API_KEY")
 	resp, _ := http.Get(`https://www.omdbapi.com/?s=`+title[0]+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
 	return body
 }
 
-// get api key from .env file
-func GoDotEnvVariable(key string) string {
 
-	// load .env file
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
-	return os.Getenv(key)
-}

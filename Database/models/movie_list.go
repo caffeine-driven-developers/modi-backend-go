@@ -1,4 +1,4 @@
-package movie_list
+package models
 
 import "time"
 
