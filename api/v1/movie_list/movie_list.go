@@ -11,7 +11,7 @@ func ApplyRoutes(r *gin.RouterGroup) {
 	{
 		movieList.POST("/",movie_list.Create)
 		movieList.GET("/:id", movie_list.Read)
-		//movieList.DELETE("/:id", movie_list.Remove)
+		movieList.DELETE("/:id", movie_list.Remove)
 		//movieList.PATCH("/:id", movie_list.Update)
 
 	}

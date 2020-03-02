@@ -47,8 +47,19 @@ func Read(c *gin.Context){
 func Update(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
 }
-
+*/
 func Remove(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
+	id,_ := strconv.Atoi(c.Param("id"))
+
+	var movieList MovieList
+
+	if err := db.Where("movie_list_id = ?", id).Find(&movieList); err.Error !=nil{
+		c.AbortWithStatus(404)
+		return
+	}
+	// authorization 후 creator 와 지금 유저 확인 필
+
+	db.Delete(&movieList)
+	c.Status(204)
 }
- */
