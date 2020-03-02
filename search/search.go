@@ -25,14 +25,14 @@ func OMDB(c *gin.Context){
 }
 
 func searchOmdbById(id []string) []byte{
-	apiKey := goDotEnvVariable("OMDB_API_KEY")
+	apiKey := GoDotEnvVariable("OMDB_API_KEY")
 	resp, _ := http.Get(`https://www.omdbapi.com/?i=`+id[0]+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
 	return body
 }
 func searchOmdbByTitle(title []string) []byte{
-	apiKey := goDotEnvVariable("OMDB_API_KEY")
+	apiKey := GoDotEnvVariable("OMDB_API_KEY")
 	resp, _ := http.Get(`https://www.omdbapi.com/?s=`+title[0]+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
@@ -40,7 +40,7 @@ func searchOmdbByTitle(title []string) []byte{
 }
 
 // get api key from .env file
-func goDotEnvVariable(key string) string {
+func GoDotEnvVariable(key string) string {
 
 	// load .env file
 	err := godotenv.Load(".env")
