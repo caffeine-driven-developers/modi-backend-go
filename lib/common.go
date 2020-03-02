@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 )
-
+type JSON = map[string]interface{}
 // get api key from .env file
 func GoDotEnvVariable(key string) string {
 

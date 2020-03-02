@@ -2,14 +2,18 @@ package movie_list
 
 import (
 	"github.com/caffeine-driven-developers/modi-backend-go/database/models"
+	"github.com/caffeine-driven-developers/modi-backend-go/lib"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
+	"strconv"
+
+	//"strconv"
 	"time"
 )
-
+// MovieList type alias
 type MovieList = models.MovieList
-
-
+// JSON type alias
+type JSON = lib.JSON
 func Create(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
 	title := c.Query("title")
@@ -26,11 +30,20 @@ func Create(c *gin.Context){
 	movieList.Updated_At = time.Now()
 	db.Create(&movieList)
 }
-/*
+
 func Read(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
-}
+	id,_ := strconv.Atoi(c.Param("id"))
+	var movieList MovieList
 
+	if err := db.Where("movie_list_id = ?", id).Find(&movieList); err.Error !=nil{
+		c.AbortWithStatus(404)
+		return
+	}
+
+	c.JSON(200, movieList.Seriallize())
+}
+/*
 func Update(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
 }
