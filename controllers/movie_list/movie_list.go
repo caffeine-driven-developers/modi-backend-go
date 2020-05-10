@@ -6,8 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"strconv"
-
-	//"strconv"
 	"time"
 )
 // MovieList type alias
@@ -16,8 +14,8 @@ type MovieList = models.MovieList
 type JSON = lib.JSON
 func Create(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
-	title := c.Query("title")
-	movieIdList := c.Query("movieIdList")
+	title := c.PostForm("title")
+	movieIdList := c.PostForm("movieIdList")
 
 	var movieList MovieList
 
@@ -48,7 +46,7 @@ func Update(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
 }
 */
-func Remove(c *gin.Context){
+func Delete(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
 	id,_ := strconv.Atoi(c.Param("id"))
 
