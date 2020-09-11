@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 func OMDB(c *gin.Context){
@@ -12,7 +13,7 @@ func OMDB(c *gin.Context){
 	if query["i"] == nil && query["s"] == nil {
 		c.String(http.StatusBadRequest, "both i and t are missing")
 	} else if query["i"] != nil && query["s"] != nil {
-		c.String(http.StatusConflict, "please specify either i(id) or t(title)")
+		c.String(http.StatusConflict, "please specify either i(id) or s(title)")
 	} else if query["i"] != nil {
 		res := searchOmdbById(query["i"])
 		c.String(http.StatusOK,string(res[:]))
@@ -24,14 +25,14 @@ func OMDB(c *gin.Context){
 
 func searchOmdbById(id []string) []byte{
 	apiKey := lib.GoDotEnvVariable("OMDB_API_KEY")
-	resp, _ := http.Get(`https://www.omdbapi.com/?i=`+id[0]+`&apikey=`+apiKey)
+	resp, _ := http.Get(`https://www.omdbapi.com/?i=`+url.QueryEscape(id[0])+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
 	return body
 }
 func searchOmdbByTitle(title []string) []byte{
 	apiKey := lib.GoDotEnvVariable("OMDB_API_KEY")
-	resp, _ := http.Get(`https://www.omdbapi.com/?s=`+title[0]+`&apikey=`+apiKey)
+	resp, _ := http.Get(`https://www.omdbapi.com/?s=`+url.QueryEscape(title[0])+`&apikey=`+apiKey)
 	defer resp.Body.Close()
 	body ,_ := ioutil.ReadAll(resp.Body)
 	return body

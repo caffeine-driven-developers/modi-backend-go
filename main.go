@@ -1,4 +1,3 @@
-
 package main // import "github.com/caffeine-driven-developers/modi-backend-go"
 import (
 	"fmt"
@@ -16,7 +15,7 @@ func main() {
 	db, err := gorm.Open("mysql", database.DbURL(database.BuildDBConfig()))
 	if err != nil {
 		fmt.Println("statuse: ", err)
-	} else{
+	} else {
 		fmt.Println("DB is connected!")
 	}
 	defer db.Close()
@@ -25,11 +24,11 @@ func main() {
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"PATCH","DELETE","GET","POST"},
+		AllowMethods:     []string{"PATCH", "DELETE", "GET", "POST"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
-		MaxAge: 12 * time.Hour,
+		MaxAge:           12 * time.Hour,
 	}))
 	r.Use(database.Inject(db)) // db to gin context
 	r.GET("/search", search.OMDB)
